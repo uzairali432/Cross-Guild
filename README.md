@@ -40,10 +40,10 @@ Cross Guild is a professional software house website designed to highlight servi
 
 - **Frontend:** React.js, HTML5, CSS3, JavaScript (ES6+)
 - **Styling:** Tailwind CSS / CSS Modules (adjust based on your project)
-- **Animations:** Framer Motion (optional)
+- **Animations:** Framer Motion 
 - **Routing:** React Router
 - **Icons:** React Icons
-- **State Management:** React Context API / Redux (if used)
+- **UI:** Shadcn
 
 ```bash
 git clone https://github.com/yourusername/cross-guild.git
