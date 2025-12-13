@@ -1,7 +1,9 @@
-
 # Cross Guild - Software House React App
 
-Cross Guild is a modern, responsive, and fully functional software house website built with **React.js**. It showcases the company's services, portfolio, team, and provides a seamless user experience for visitors.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+[Live Demo](#) <!-- Add link if deployed -->
+
+Cross Guild is a modern, responsive software house website built with **React.js**. It showcases services, portfolio projects, team members, and provides a smooth user experience for visitors.
 
 ---
 
@@ -20,30 +22,41 @@ Cross Guild is a modern, responsive, and fully functional software house website
 
 ## About
 
-Cross Guild is a professional software house website designed to highlight services like web development, mobile app development, UI/UX design, and more. The app is built using React.js and modern frontend tools to ensure fast performance, responsiveness, and a clean UI.
+Cross Guild is designed for a professional software house to highlight their offerings such as:
+
+- Web Development  
+- Mobile App Development  
+- UI/UX Design  
+
+The website is fully responsive, interactive, and built with modern frontend technologies.
 
 ---
 
 ## Features
 
-- Fully responsive and mobile-friendly design
-- Service showcase (Web, Mobile, UI/UX)
-- Portfolio/projects section
+- Responsive design for mobile, tablet, and desktop
+- Service showcase section
+- Portfolio/projects gallery
 - Team section with profiles
-- Contact form
+- Contact form integration
 - Smooth animations and transitions
-- Modern, clean UI/UX design
+- Clean and modern UI/UX
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** React.js, HTML5, CSS3, JavaScript (ES6+)
-- **Styling:** Tailwind CSS / CSS Modules (adjust based on your project)
-- **Animations:** Framer Motion 
-- **Routing:** React Router
-- **Icons:** React Icons
-- **UI:** Shadcn
+- **Frontend:** React.js  
+- **Styling:** CSS3 / Tailwind CSS   
+- **Routing:** React Router  
+- **Icons:** React Icons  
+- **Animations:** Framer Motion  
+
+---
+
+## Installation
+
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/cross-guild.git
+git clone https://github.com/uzairali432/Cross-Guild.git
