@@ -1,6 +1,6 @@
-import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Target, Eye, Rocket, Award } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const stats = [
   { value: 10, suffix: "+", label: "Years Experience" },
@@ -36,7 +36,7 @@ const values = [
   },
 ];
 
-const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) => {
+const AnimatedCounter = ({ value, suffix }) => {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -84,12 +84,7 @@ const About = () => {
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto container-padding">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             About Us
           </span>
@@ -100,17 +95,15 @@ const About = () => {
             Since 2014, we've been at the forefront of digital innovation, helping businesses
             transform their ideas into powerful software solutions.
           </p>
-        </motion.div>
+        </div>
 
         {/* Values Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {values.map((item, index) => (
-            <motion.div
+            <div
               key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              className={`group transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}
+              style={{ transitionDelay: `${index * 0.1}s` }}
             >
               <div className="h-full glass-card p-6 hover:bg-card/80 transition-all duration-300 hover:-translate-y-2">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -123,42 +116,31 @@ const About = () => {
                   {item.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="glass-card p-8 md:p-12"
-        >
+        <div className={`glass-card p-8 md:p-12 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.4s" }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                className="text-center"
+                className={`text-center transition-opacity duration-500 ${isInView ? "opacity-100" : "opacity-0"}`}
+                style={{ transitionDelay: `${0.5 + index * 0.1}s` }}
               >
                 <div className="font-display text-4xl md:text-5xl font-bold gradient-text mb-2">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </div>
                 <div className="text-muted-foreground text-sm">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Story Section */}
         <div className="mt-20 grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
+          <div className={`transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.3s" }}>
             <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
               Building Tomorrow's Technology <span className="gradient-text">Today</span>
             </h3>
@@ -179,14 +161,9 @@ const About = () => {
                 of quality.
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="relative"
-          >
+          <div className={`relative transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.5s" }}>
             <div className="aspect-square rounded-3xl overflow-hidden glass-card p-1">
               <div className="w-full h-full rounded-[20px] bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 flex items-center justify-center">
                 <div className="text-center p-8">
@@ -203,7 +180,7 @@ const About = () => {
               </div>
             </div>
             <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl blur-3xl -z-10 opacity-50" />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -211,3 +188,4 @@ const About = () => {
 };
 
 export default About;
+

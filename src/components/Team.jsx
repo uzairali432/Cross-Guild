@@ -1,6 +1,6 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Linkedin, Twitter, Github } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const team = [
   {
@@ -61,12 +61,7 @@ const Team = () => {
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto container-padding">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Our Team
           </span>
@@ -77,17 +72,15 @@ const Team = () => {
             A diverse team of passionate innovators dedicated to turning your
             vision into reality.
           </p>
-        </motion.div>
+        </div>
 
         {/* Team Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {team.map((member, index) => (
-            <motion.div
+            <div
               key={member.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group"
+              className={`group transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}
+              style={{ transitionDelay: `${index * 0.1}s` }}
             >
               <div className="relative glass-card overflow-hidden hover:bg-card/80 transition-all duration-500 hover:-translate-y-2">
                 {/* Image */}
@@ -102,11 +95,7 @@ const Team = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
 
                   {/* Social Links - Appear on hover */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                    className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                  >
+                  <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <a
                       href={member.social.linkedin}
                       className="p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -128,7 +117,7 @@ const Team = () => {
                     >
                       <Github className="w-4 h-4" />
                     </a>
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Info */}
@@ -142,7 +131,7 @@ const Team = () => {
                   <p className="text-muted-foreground text-sm">{member.bio}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -151,3 +140,4 @@ const Team = () => {
 };
 
 export default Team;
+

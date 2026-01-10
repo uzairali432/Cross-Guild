@@ -1,8 +1,8 @@
-import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Send, Mail, Phone, MapPin, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useInView } from "@/hooks/use-in-view";
 
 const Contact = () => {
   const containerRef = useRef(null);
@@ -17,12 +17,12 @@ const Contact = () => {
     message: "",
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
+    const newErrors = {};
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
@@ -50,7 +50,7 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -75,9 +75,7 @@ const Contact = () => {
     }, 3000);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -101,12 +99,7 @@ const Contact = () => {
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto container-padding">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Get In Touch
           </span>
@@ -117,16 +110,11 @@ const Contact = () => {
             Have a project in mind? Let's discuss how we can help bring your
             vision to life.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
-          >
+          <div className={`lg:col-span-2 space-y-8 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.2s" }}>
             <div>
               <h3 className="font-display text-2xl font-bold text-foreground mb-4">
                 Let's Talk
@@ -176,22 +164,13 @@ const Contact = () => {
                 We typically respond within 24 hours during business days.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="lg:col-span-3"
-          >
+          <div className={`lg:col-span-3 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.4s" }}>
             <div className="glass-card p-6 md:p-8">
               {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
+                <div className="text-center py-12 animate-scale-in">
                   <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
                     <CheckCircle className="w-8 h-8 text-green-500" />
                   </div>
@@ -201,7 +180,7 @@ const Contact = () => {
                   <p className="text-muted-foreground">
                     Your message has been sent successfully. We'll be in touch soon!
                   </p>
-                </motion.div>
+                </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
@@ -345,7 +324,7 @@ const Contact = () => {
                 </form>
               )}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -353,3 +332,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

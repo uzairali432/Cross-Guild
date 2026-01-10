@@ -1,10 +1,10 @@
-import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useInView } from "@/hooks/use-in-view";
 
 const technologies = [
   { name: "React", category: "Frontend", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "Next.js", category: "Frontend", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "TypeScript", category: "Language", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "JavaScript", category: "Language", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
   { name: "Node.js", category: "Backend", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
   { name: "Python", category: "Language", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "Go", category: "Backend", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" },
@@ -23,7 +23,7 @@ const technologies = [
 const TechStack = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const [hoveredTech, setHoveredTech] = useState(null);
 
   return (
     <section className="section-padding relative overflow-hidden bg-muted/30">
@@ -35,12 +35,7 @@ const TechStack = () => {
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto container-padding">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Technology Stack
           </span>
@@ -51,17 +46,15 @@ const TechStack = () => {
             We leverage cutting-edge technologies to build scalable, performant,
             and future-proof solutions.
           </p>
-        </motion.div>
+        </div>
 
         {/* Tech Grid */}
         <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
           {technologies.map((tech, index) => (
-            <motion.div
+            <div
               key={tech.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.03 }}
-              className="relative group"
+              className={`relative group transition-opacity duration-400 ${isInView ? "opacity-100" : "opacity-0"}`}
+              style={{ transitionDelay: `${index * 0.03}s` }}
               onMouseEnter={() => setHoveredTech(tech.name)}
               onMouseLeave={() => setHoveredTech(null)}
             >
@@ -74,23 +67,16 @@ const TechStack = () => {
               </div>
 
               {/* Tooltip */}
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                animate={{
-                  opacity: hoveredTech === tech.name ? 1 : 0,
-                  y: hoveredTech === tech.name ? 0 : 10,
-                  scale: hoveredTech === tech.name ? 1 : 0.9,
-                }}
-                transition={{ duration: 0.2 }}
-                className="absolute -bottom-14 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
-              >
-                <div className="px-3 py-2 rounded-lg bg-card border border-border shadow-xl text-center whitespace-nowrap">
-                  <div className="text-foreground text-sm font-medium">{tech.name}</div>
-                  <div className="text-muted-foreground text-xs">{tech.category}</div>
+              {hoveredTech === tech.name && (
+                <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 z-10 pointer-events-none animate-scale-in">
+                  <div className="px-3 py-2 rounded-lg bg-card border border-border shadow-xl text-center whitespace-nowrap">
+                    <div className="text-foreground text-sm font-medium">{tech.name}</div>
+                    <div className="text-muted-foreground text-xs">{tech.category}</div>
+                  </div>
+                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-card border-l border-t border-border rotate-45" />
                 </div>
-                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-card border-l border-t border-border rotate-45" />
-              </motion.div>
-            </motion.div>
+              )}
+            </div>
           ))}
         </div>
       </div>
@@ -99,3 +85,4 @@ const TechStack = () => {
 };
 
 export default TechStack;
+

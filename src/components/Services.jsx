@@ -1,4 +1,3 @@
-import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
   Globe,
@@ -9,6 +8,7 @@ import {
   Shield,
   ArrowRight,
 } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const services = [
   {
@@ -75,12 +75,7 @@ const Services = () => {
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto container-padding">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Our Services
           </span>
@@ -91,17 +86,15 @@ const Services = () => {
             From concept to deployment, we deliver end-to-end software solutions
             tailored to your unique business needs.
           </p>
-        </motion.div>
+        </div>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative"
+              className={`group relative transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}
+              style={{ transitionDelay: `${index * 0.1}s` }}
             >
               <div className="h-full glass-card p-6 hover:bg-card/80 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                 {/* Gradient overlay on hover */}
@@ -145,7 +138,7 @@ const Services = () => {
                   <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -154,3 +147,4 @@ const Services = () => {
 };
 
 export default Services;
+

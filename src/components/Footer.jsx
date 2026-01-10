@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Zap, Linkedin, Twitter, Github, Instagram, ArrowUp } from "lucide-react";
 
 const footerLinks = {
@@ -40,7 +39,7 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const scrollToSection = (href: string) => {
+  const scrollToSection = (href) => {
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
       if (element) {
@@ -62,14 +61,13 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
-            <motion.a
+            <a
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection("#home");
               }}
-              className="flex items-center gap-2 mb-4"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 mb-4 hover:scale-105 transition-transform"
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
                 <Zap className="w-5 h-5 text-primary-foreground" />
@@ -77,7 +75,7 @@ const Footer = () => {
               <span className="font-display font-bold text-xl text-foreground">
                 Cross<span className="text-primary">Guild</span>
               </span>
-            </motion.a>
+            </a>
             <p className="text-muted-foreground text-sm mb-6 max-w-xs">
               Transforming ideas into exceptional digital experiences. Your
               trusted partner for innovative software solutions.
@@ -212,3 +210,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

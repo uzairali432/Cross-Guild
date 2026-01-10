@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -39,7 +38,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
+  const scrollToSection = (href) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -48,10 +47,7 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-background/50"
@@ -61,14 +57,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <motion.a
+          <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="flex items-center gap-2 group"
-            whileHover={{ scale: 1.02 }}
+            className="flex items-center gap-2 group hover:scale-105 transition-transform"
           >
             <div className="relative">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
@@ -79,31 +74,25 @@ const Navbar = () => {
             <span className="font-display font-bold text-xl text-foreground">
               Cross<span className="text-primary">Guild</span>
             </span>
-          </motion.a>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
-              <motion.button
+              <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors ${
+                className={`relative px-4 py-2 text-sm font-medium transition-colors hover:-translate-y-0.5 ${
                   activeSection === link.href.slice(1)
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
               >
                 {link.name}
                 {activeSection === link.href.slice(1) && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary" />
                 )}
-              </motion.button>
+              </button>
             ))}
           </div>
 
@@ -130,53 +119,38 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border"
-          >
-            <div className="px-4 py-6 space-y-2">
-              {navLinks.map((link, index) => (
-                <motion.button
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  onClick={() => scrollToSection(link.href)}
-                  className={`block w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                    activeSection === link.href.slice(1)
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  }`}
-                >
-                  {link.name}
-                </motion.button>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="pt-4"
+      {isOpen && (
+        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border transition-all duration-300">
+          <div className="px-4 py-6 space-y-2">
+            {navLinks.map((link, index) => (
+              <button
+                key={link.name}
+                onClick={() => scrollToSection(link.href)}
+                className={`block w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                  activeSection === link.href.slice(1)
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
               >
-                <Button
-                  variant="hero"
-                  size="lg"
-                  className="w-full"
-                  onClick={() => scrollToSection("#contact")}
-                >
-                  Get a Quote
-                </Button>
-              </motion.div>
+                {link.name}
+              </button>
+            ))}
+            <div className="pt-4">
+              <Button
+                variant="hero"
+                size="lg"
+                className="w-full"
+                onClick={() => scrollToSection("#contact")}
+              >
+                Get a Quote
+              </Button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 
 export default Navbar;
+

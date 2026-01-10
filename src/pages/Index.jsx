@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -27,9 +26,7 @@ const Index = () => {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {isLoading && <PageLoader />}
-      </AnimatePresence>
+      {isLoading && <PageLoader />}
 
       {!isLoading && (
         <main className="relative">
@@ -51,3 +48,4 @@ const Index = () => {
 };
 
 export default Index;
+

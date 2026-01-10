@@ -1,6 +1,6 @@
-import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const testimonials = [
   {
@@ -83,12 +83,7 @@ const Testimonials = () => {
 
       <div ref={containerRef} className="relative max-w-7xl mx-auto container-padding">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <div className={`text-center mb-16 transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`}>
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Testimonials
           </span>
@@ -99,15 +94,10 @@ const Testimonials = () => {
             Don't just take our word for it. Here's what our clients have to say
             about working with us.
           </p>
-        </motion.div>
+        </div>
 
         {/* Testimonial Slider */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative"
-        >
+        <div className={`relative transition-opacity duration-600 ${isInView ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.2s" }}>
           <div className="glass-card p-8 md:p-12 lg:p-16 max-w-4xl mx-auto">
             {/* Quote Icon */}
             <div className="absolute top-8 left-8 md:top-12 md:left-12">
@@ -116,14 +106,7 @@ const Testimonials = () => {
 
             {/* Content */}
             <div className="relative">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.5 }}
-                className="text-center"
-              >
+              <div key={currentIndex} className="text-center animate-fade-in">
                 {/* Stars */}
                 <div className="flex justify-center gap-1 mb-6">
                   {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
@@ -153,7 +136,7 @@ const Testimonials = () => {
                     {testimonials[currentIndex].company}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Navigation */}
@@ -194,10 +177,11 @@ const Testimonials = () => {
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Testimonials;
+
